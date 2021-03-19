@@ -230,11 +230,11 @@ yum install python3 -y
 
 # Install NodeJS
 yum install nodejs -y
-npm install -g npm@latest
-hash -r
 npm cache clean -f
 npm install -g n
 n lts
+npm install -g npm@latest
+hash -r
 lastVersion=$(ls /usr/local/n/versions/node | tac | grep -m1 "")
 ln -sf /usr/local/n/versions/node/$lastVersion/bin/node /usr/bin/node
 
