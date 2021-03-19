@@ -240,6 +240,10 @@ hash -r
 lastVersion=$(ls /usr/local/n/versions/node | tac | grep -m1 "")
 ln -sf /usr/local/n/versions/node/$lastVersion/bin/node /usr/bin/node
 
+# FTP
+yum install vsftpd -y
+systemctl enable vsftpd --now
+
 # Puppeteer prerequisites
 yum install gcc-c++ -y make
 yum install libXcomposite libXcursor libXdamage libXext libXi libXtst libmng libXScrnSaver libXrandr libXv alsa-lib cairo pango atk at-spi2-atk gtk3 -y
