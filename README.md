@@ -230,9 +230,18 @@ yum install python3 -y
 
 # Install NodeJS
 yum install nodejs -y
+npm install -g npm@latest
+hash -r
 npm cache clean -f
 npm install -g n
 n lts
 lastVersion=$(ls /usr/local/n/versions/node | tac | grep -m1 "")
 ln -sf /usr/local/n/versions/node/$lastVersion/bin/node /usr/bin/node
+
+# Puppeteer prerequisites
+yum install gcc-c++ -y make
+yum install libXcomposite libXcursor libXdamage libXext libXi libXtst libmng libXScrnSaver libXrandr libXv alsa-lib cairo pango atk at-spi2-atk gtk3 -y
+
+# Voice prerequisites
+pip3 install gTTS
 ```
