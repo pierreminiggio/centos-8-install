@@ -40,6 +40,8 @@ ServerName www.$domain
 ServerAdmin pierre@miniggiodev.fr
 ServerAlias $domain
 DocumentRoot /var/www/html/$folder/
+ErrorLog /var/www/logs/$folder_error.log
+CustomLog /var/www/logs/$folder_access.log combined
 <Directory "/var/www/html/$folder/">
     AllowOverride All
 </Directory>
