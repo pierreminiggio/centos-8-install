@@ -105,7 +105,7 @@ cp config.sample.inc.php config.inc.php
 
 # Set a blowfish secret
 cat config.inc.php | sed -e "s/blowfish_secret'\] \= ''/blowfish_secret'\] \= '$(openssl rand -base64 32 | sed 's/\=/3/g')'/g" > config2.inc.php
-mv config2.inc.phpconfig.inc.php -f
+mv config2.inc.php config.inc.php -f
 
 # Add the following lines :
 echo "\$cfg['TempDir'] = '/tmp/phpmyadmin';" >> config.inc.php
