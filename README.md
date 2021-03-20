@@ -36,9 +36,8 @@ domain=$domain;
 folder=$(cut -d '.' -f1 <<<"$domain")
 echo "
 <VirtualHost *:80>
-ServerName www.$domain
+ServerName $domain
 ServerAdmin pierre@miniggiodev.fr
-ServerAlias $domain
 DocumentRoot /var/www/html/$folder/
 ErrorLog /var/www/logs/$folder_error.log
 CustomLog /var/www/logs/$folder_access.log combined
