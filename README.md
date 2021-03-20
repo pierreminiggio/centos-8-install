@@ -37,6 +37,7 @@ folder=$(cut -d '.' -f1 <<<"$domain")
 echo "
 <VirtualHost *:80>
 ServerName $domain
+ServerAlias www.$domain
 ServerAdmin pierre@miniggiodev.fr
 DocumentRoot /var/www/html/$folder/
 ErrorLog /var/www/logs/$folder_error.log
@@ -100,7 +101,7 @@ mv phpMyAdmin-5.1.0-all-languages phpmyadmin
 chown -R apache:apache /var/www/html/phpmyadmin
 rm -f phpMyAdmin-5.1.0-all-languages.zip
 
-# Configure phpMyAdmin
+# Configure phpMyAdcd ../min
 cd /var/www/html/phpmyadmin
 cp config.sample.inc.php config.inc.php
 
