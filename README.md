@@ -248,13 +248,16 @@ systemctl enable vsftpd --now
 # Migrate to MPM Worker
 # Edit the MPM module selection
 sudo cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf.bak
+```
 
 # Then edit /etc/httpd/conf.modules.d/00-mpm.conf:
+```console
 #LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
 #LoadModule mpm_worker_module modules/mod_mpm_worker.so
 LoadModule mpm_worker_module modules/mod_mpm_worker.so
 #LoadModule mpm_event_module modules/mod_mpm_event.so
-
+```
+```console
 # Add worker tuning — create a new file
 sudo tee /etc/httpd/conf.modules.d/01-mpm-worker.conf << 'EOF'
 <IfModule mpm_worker_module>
