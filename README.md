@@ -243,4 +243,51 @@ ln -sf /usr/local/n/versions/node/$lastVersion/bin/node /usr/bin/node
 # FTP
 yum install vsftpd -y
 systemctl enable vsftpd --now
+
+
+# Migrate to MPM Worker
+# Edit the MPM module selection
+sudo cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf.bak
+
+# Then edit /etc/httpd/conf.modules.d/00-mpm.conf:
+
+#LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+#LoadModule mpm_worker_module modules/mod_mpm_worker.so
+LoadModule mpm_worker_module modules/mod_mpm_worker.so
+#LoadModule mpm_event_module modules/mod_mpm_event.so
+
+# Add worker tuning — create a new file
+sudo tee /etc/httpd/conf.modules.d/01-mpm-worker.conf << 'EOF'
+<IfModule mpm_worker_module>
+    StartServers             3
+    MinSpareThreads         75
+    MaxSpareThreads        250
+    ThreadsPerChild          25
+    MaxRequestWorkers       400
+    MaxConnectionsPerChild    0
+    ListenBacklog          1024
+</IfModule>
+EOF
+
+# Also apply the kernel-level backlog increases we discussed earlier, so they take effect together
+sudo tee /etc/sysctl.d/99-somaxconn.conf << 'EOF'
+net.core.somaxconn = 1024
+net.ipv4.tcp_max_syn_backlog = 2048
+EOF
+sudo sysctl -p /etc/sysctl.d/99-somaxconn.conf
+
+# Validate the config before touching the running service
+sudo apachectl configtest
+# Must say Syntax OK. If it errors, stop and paste the error — don't proceed to restart with a broken config.
+
+# Restart httpd
+sudo systemctl restart httpd
+sudo systemctl status httpd
+
+# Confirm the switch actually took effect
+apachectl -V | grep -i "Server MPM"
+apachectl -M | grep mpm
+
+# Sanity check the site is reachable again
+curl -v -m 5 http://127.0.0.1/
 ```
