@@ -243,9 +243,10 @@ ln -sf /usr/local/n/versions/node/$lastVersion/bin/node /usr/bin/node
 # FTP
 yum install vsftpd -y
 systemctl enable vsftpd --now
-
+```
 
 # Migrate to MPM Worker
+```console
 # Edit the MPM module selection
 sudo cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf.bak
 ```
