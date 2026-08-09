@@ -250,7 +250,6 @@ systemctl enable vsftpd --now
 sudo cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf.bak
 
 # Then edit /etc/httpd/conf.modules.d/00-mpm.conf:
-
 #LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
 #LoadModule mpm_worker_module modules/mod_mpm_worker.so
 LoadModule mpm_worker_module modules/mod_mpm_worker.so
