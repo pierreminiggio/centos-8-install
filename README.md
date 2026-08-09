@@ -249,6 +249,7 @@ systemctl enable vsftpd --now
 ```console
 # Edit the MPM module selection
 sudo cp /etc/httpd/conf.modules.d/00-mpm.conf /etc/httpd/conf.modules.d/00-mpm.conf.bak
+sudo nano /etc/httpd/conf.modules.d/00-mpm.conf
 ```
 
 # Then edit /etc/httpd/conf.modules.d/00-mpm.conf:
